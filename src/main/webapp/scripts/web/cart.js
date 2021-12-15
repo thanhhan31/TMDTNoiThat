@@ -16,7 +16,7 @@ function deleteProductFromCart(btn_row, idProduct) {
 				$("#errorModal").modal('show');
 			}
 			else {
-				var row = btn_row.parentNode.parentNode.parentNode;
+				var row = btn_row.parentNode.parentNode;
 				row.parentNode.removeChild(row);
 				updateTotalPrice();
 				$("#cartQuantity")[0].innerText = getCartQuantity();

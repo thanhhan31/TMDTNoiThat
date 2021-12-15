@@ -14,7 +14,9 @@ import com.google.gson.Gson;
 
 import TMDTNoiThat.entity.User;
 import TMDTNoiThat.services.CartService;
+import TMDTNoiThat.services.ProductService;
 import TMDTNoiThat.services.impl.CartServiceImpl;
+import TMDTNoiThat.services.impl.ProductServiceImpl;
 
 @WebServlet(urlPatterns = "/api/cart-api")
 public class CartAPIController extends HttpServlet {
@@ -50,12 +52,17 @@ public class CartAPIController extends HttpServlet {
 		if (action.equals("add")) {
 			Integer idProduct = Integer.parseInt(req.getParameter("idProduct"));
 			Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-			if (csv.addProductCart(user.getId(), idProduct, quantity)) {
+			
+			if (new ProductServiceImpl().getProductById(idProduct).getUser().getId() == user.getId()) {
+				d.put("status", "400");
+				d.put("message", "Bạn không thể thêm sản phẩm do mình bán vào giỏ hàng!");
+			}
+			else if (csv.addProductCart(user.getId(), idProduct, quantity)) {
 				d.put("status", "200");
 			}
 			else {
 				d.put("status", "400");
-				d.put("message", "Thêm sản phẩm vào giỏ hàng không thành công");
+				d.put("message", "Thêm sản phẩm vào giỏ hàng không thành công!");
 			}
 		}
 		else if (action.equals("adjust")) {
@@ -67,7 +74,7 @@ public class CartAPIController extends HttpServlet {
 				}
 				else {
 					d.put("status", "400");
-					d.put("message", "Xóa sản phẩm khỏi giỏ hàng không thành công");
+					d.put("message", "Xóa sản phẩm khỏi giỏ hàng không thành công!");
 				}
 			}
 			else {
@@ -76,7 +83,7 @@ public class CartAPIController extends HttpServlet {
 				}
 				else {
 					d.put("status", "400");
-					d.put("message", "Thay đổi số lượng sản phẩm trong giỏ hàng không thành công");
+					d.put("message", "Thay đổi số lượng sản phẩm trong giỏ hàng không thành công!");
 				}
 			}
 		}

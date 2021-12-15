@@ -13,7 +13,7 @@
 	}
 </style>
 
-<div class="menu">
+<div class="menu" style="display: grid;">
 	<div class="sticky-top">
 		<div class="d-flex flex-column ml-1 mr-1 mt-1">
 			<c:choose>
@@ -26,8 +26,6 @@
            	</c:choose>
 			<p class="text-center text-white">Xin chào ${user.getUsername()}</p>
 			<p class="text-center text-white">Bạn là ${user.getUserRole().getName()}</p>
-			<a class="btn btn-info ml-auto mr-auto" href="${pageContext.request.contextPath}/home">QUAY VỀ TRANG CHỦ</a>
-			<a class="btn btn-info ml-auto mr-auto mt-3" href="${pageContext.request.contextPath}/logout">ĐĂNG XUẤT</a>
 		</div>
 		<hr>
 		<ul class="nav nav-pills flex-column mb-auto">
@@ -44,5 +42,10 @@
 				class="nav-link text-white ${pageContext.request.servletPath == '/seller/orders' ? 'active' : ''}"><i class="fas fa-users mr-2"></i>Quản lý đơn hàng</a>
 			</li>
 		</ul>
+		
+	</div>
+	<div class="d-flex flex-column" style="align-self: self-end;">
+		<a class="btn btn-info ml-auto mr-auto" href="${pageContext.request.contextPath}/home">QUAY VỀ TRANG CHỦ</a>
+		<a class="btn btn-info ml-auto mr-auto mt-2 mb-2" href="${pageContext.request.contextPath}/logout">ĐĂNG XUẤT</a>
 	</div>
 </div>

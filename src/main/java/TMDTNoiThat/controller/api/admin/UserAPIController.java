@@ -57,7 +57,7 @@ public class UserAPIController extends HttpServlet {
 				if (u.getUserRole().getId() == idRole) 
 					idRole = null;
 				if (u.getUsername().equals(username))
-					email = null;
+					username = null;
 				if (u.getEmail().equals(email))
 					email = null;
 				if (u.getPhone().equals(phone))

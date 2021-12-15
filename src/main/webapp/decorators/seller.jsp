@@ -49,12 +49,6 @@
 		.menu {
 			background: darkslategray;
 		}
-	
-		@media (max-width: 480px) {
-			body {
-				flex-direction: column;
-			}
-		}
 	</style>
 </head>
 <body>
