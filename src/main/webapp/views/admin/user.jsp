@@ -457,7 +457,7 @@
 	}
 	
 	function resetPw(btn) {
-		idUser = $(btn.closest('form')).find('#idUser')[0].value;
+		idUser = $(btn.closest('form')).find('#idUserResetForm')[0].value;
 		var formdata = new FormData($("#resetPwForm")[0]);
 		
 		$.ajax({
