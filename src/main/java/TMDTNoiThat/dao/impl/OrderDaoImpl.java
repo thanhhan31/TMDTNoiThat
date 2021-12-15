@@ -240,7 +240,7 @@ public class OrderDaoImpl implements OrderDao {
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		
 		Root<Order> rootEntry = cq.from(Order.class);
-		cq.select(rootEntry.get(Order_.createTime));
+		cq.select(rootEntry.get(Order_.paidTime));
 		
 		if (idUser != null) {
 			cq.where(cb.and(cb.equal(rootEntry.get(Order_.seller).get(User_.id), idUser)),
@@ -285,24 +285,24 @@ public class OrderDaoImpl implements OrderDao {
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<OrderDetail> rootEntry = cq.from(OrderDetail.class);
 		
-		cq.multiselect(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), 
+		cq.multiselect(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), 
 				cb.sum(cb.prod(rootEntry.get(OrderDetail_.unitPrice), rootEntry.get(OrderDetail_.quantity))));
 		
 		if (idUser != null) {
 			cq.where(cb.and(
 					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.seller).get(User_.id), idUser),
 					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
-					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), year)));
+					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year)));
 		}
 		else { //for admin report
 			cq.where(cb.and(
 					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
-					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), year)));
+					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year)));
 		}
 		
 		
-		cq.groupBy(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)));
-		cq.orderBy(cb.asc(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime))));
+		cq.groupBy(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)));
+		cq.orderBy(cb.asc(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime))));
 
 		List<Tuple> lt = em.createQuery(cq).getResultList();
 		em.close();
@@ -335,25 +335,25 @@ public class OrderDaoImpl implements OrderDao {
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<OrderDetail> rootEntry = cq.from(OrderDetail.class);
 		
-		cq.multiselect(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), 
+		cq.multiselect(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), 
 				cb.sum(cb.prod(rootEntry.get(OrderDetail_.unitPrice), rootEntry.get(OrderDetail_.quantity))));
 		
 		if (idUser != null) {
 			cq.where(cb.and(
 					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.seller).get(User_.id), idUser),
 					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
-					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), year),
-					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), month)));
+					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year),
+					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), month)));
 		}
 		else {
 			cq.where(cb.and(
 					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
-					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), year),
-					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)), month)));
+					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year),
+					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), month)));
 		}
 		
-		cq.groupBy(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime)));
-		cq.orderBy(cb.asc(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.createTime))));
+		cq.groupBy(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)));
+		cq.orderBy(cb.asc(cb.function("DAY", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime))));
 
 		List<Tuple> lt = em.createQuery(cq).getResultList();
 		em.close();
@@ -455,6 +455,7 @@ public class OrderDaoImpl implements OrderDao {
 		try {
 			Order order = em.getReference(Order.class, idOrder);
 			order.setStatus(ConstantValue.PAID_ORDER);
+			order.setPaidTime(MyUtils.getCurrentTime());
 			order.setPaymentMethod(em.getReference(PaymentMethod.class, idPaymentMethod));
 			em.getTransaction().begin();
 			em.merge(order);
