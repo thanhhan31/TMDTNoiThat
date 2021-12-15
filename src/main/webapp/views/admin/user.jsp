@@ -18,6 +18,12 @@
 		text-align: center;
 		vertical-align: middle!important;
 	}
+	.cell-text-truncate {
+		white-space: nowrap; 
+		text-overflow:ellipsis; 
+		overflow: hidden; 
+		max-width:1px;
+	}
 </style>
 
 <div class="card">
@@ -110,7 +116,7 @@
 							</div>
 						</td>
 						<td>${u.getId()}</td>
-						<td>${u.getUsername()}</td>
+						<td class="cell-text-truncate">${u.getUsername()}</td>
 						<td>${u.getUserRole().getName()}</td>
 						<td>${u.getEmail()}</td>
 						<td>${u.getPhone()}</td>
@@ -198,7 +204,7 @@
 							</div>
 							<div class="form-group">
 								<label for="new_avatar">Hình đại diện</label>
-								<input type="file" class="form-control" id="new_avatar" name="avatar">
+								<input type="file" class="form-control" id="new_avatar" name="avatar" accept="image/*">
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
@@ -274,7 +280,7 @@
 							</div>
 							<div class="form-group">
 								<label for="avatar">Hình đại diện</label>
-								<input type="file" class="form-control" id="avatar" name="avatar">
+								<input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
 							</div>
 							<fieldset class="form-group">
 								<div class="row">

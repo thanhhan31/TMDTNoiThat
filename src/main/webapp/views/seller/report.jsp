@@ -11,14 +11,6 @@
 <style>
 	dt { float: left; clear: left; width: 22em; font-weight: bold; }
 	dd { float: left; }
-	#reportPieChart {
-	    padding-left: 0;
-	    padding-right: 0;
-	    margin-left: auto;
-	    margin-right: auto;
-	    display: block;
-	    width: 800px;
-	}
 </style>
 
 <div class="container mt-5">
@@ -163,8 +155,12 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<canvas id="reportPieChart"style="width:100%;max-width:600px;height:100%;max-height:600px;"></canvas>
-					<canvas id="reportChart" class="mt-4"></canvas>
+					<div style="position: relative; height:45vh; width:45vw" class="mr-auto ml-auto">
+						<canvas id="reportPieChart"></canvas>
+					</div>
+					<div>
+						<canvas id="reportChart" class="mt-4"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -286,6 +282,7 @@
 				    }]
 				  },
 				  options: {
+					maintainAspectRatio: false,
 					plugins: {
 						title: {
 			                display: true,

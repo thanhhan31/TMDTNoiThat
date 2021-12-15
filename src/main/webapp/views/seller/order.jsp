@@ -101,16 +101,15 @@
 													</div>
 													<div class="col">
 														<a href="${pageContext.request.contextPath}/productdetail?id=${odt.getProduct().getId()}">${odt.getProduct().getName()}</a>
+														<br/>
+														<p>x${odt.getQuantity()}</p>
 													</div>
 												</div>
 											</div>
 											<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 												<div class="container d-flex h-100">
 													<div class="row align-self-center ml-auto">
-														<p>
-															<fmt:formatNumber value="${odt.getUnitPrice()}" type="currency" />
-															<br />x${odt.getQuantity()}
-														</p>
+														<p><fmt:formatNumber value="${odt.getUnitPrice()}" type="currency" /></p>
 													</div>
 												</div>
 											</div>

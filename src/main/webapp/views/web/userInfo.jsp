@@ -31,7 +31,7 @@
 	<div class="form-group row">
 		<label for="avatar" class="col-sm-2 col-form-label">Ảnh đại diện</label>
 		<div class="col-sm-10">
-			<input type="file" class="form-control" id="avatar" name="avatar" onchange="previewImage(this, 'avtimg')">
+			<input type="file" class="form-control" id="avatar" name="avatar" onchange="previewImage(this, 'avtimg')" accept="image/*">
 		</div>
 	</div>
 	<div class="container">

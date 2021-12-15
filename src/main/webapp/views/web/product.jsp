@@ -81,9 +81,9 @@
 			<div class="col pl-auto pr-auto mt-3 mt-sm-auto pr-md-0 pl-md-0">
 				<nav>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Home</a></li>
+						<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
 						<li class="breadcrumb-item">
-							<a href="${pageContext.request.contextPath}/products">All category</a>
+							<a href="${pageContext.request.contextPath}/products">Tất cả loại sản phẩm</a>
 						</li>
 						<c:if test="${not empty selectedCategory}">
 							<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/products?category=${param['category']}">${selectedCategory}</a></li>

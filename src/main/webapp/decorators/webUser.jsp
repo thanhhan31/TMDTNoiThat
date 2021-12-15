@@ -55,9 +55,15 @@
 	                </div>
 	            </div>
 	            <ul class="list-group">
-	                <li class="list-group-item list-group-item-action ${fn:contains(pageContext.request.servletPath, 'user/info') ? 'active' : ''}"><a class="text-dark" href="${pageContext.request.contextPath}/user/info">Tài khoản</a></li>
-	                <li class="list-group-item list-group-item-action ${fn:contains(pageContext.request.servletPath, 'user/orders') ? 'active' : ''}"><a class="text-dark" href="${pageContext.request.contextPath}/user/orders">Đơn hàng</a></li>
-	            	<li class="list-group-item list-group-item-action ${fn:contains(pageContext.request.servletPath, 'user/shipinfo') ? 'active' : ''}"><a class="text-dark" href="${pageContext.request.contextPath}/user/shipinfo">Địa chỉ giao hàng</a></li>
+	                <li class="list-group-item list-group-item-action ${pageContext.request.servletPath == '/user/info' ? 'active' : ''}">
+	                	<a class="${pageContext.request.servletPath == '/user/info' ? 'text-white' : 'text-dark'}" href="${pageContext.request.contextPath}/user/info">Tài khoản</a>
+	                </li>
+	                <li class="list-group-item list-group-item-action ${pageContext.request.servletPath == '/user/orders' ? 'active' : ''}">
+	                	<a class="${pageContext.request.servletPath == '/user/orders' ? 'text-white' : 'text-dark'}" href="${pageContext.request.contextPath}/user/orders">Đơn hàng</a>
+	                </li>
+	            	<li class="list-group-item list-group-item-action ${pageContext.request.servletPath == '/user/shipinfo' ? 'active' : ''}">
+	            		<a class="${pageContext.request.servletPath == '/user/shipinfo' ? 'text-white' : 'text-dark'}" href="${pageContext.request.contextPath}/user/shipinfo">Địa chỉ giao hàng</a>
+	            	</li>
 	            </ul>
 	        </div>
 	        <div class="col">
