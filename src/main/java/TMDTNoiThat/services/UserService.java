@@ -13,4 +13,5 @@ public interface UserService {
 	int createUser(Integer idRole, String username, String password, String phone, String email, String avatar, Boolean active);
 	boolean updateUser(Integer idUser, Integer idRole, String username, String password, String phone, String email, String avatar, Boolean active);
 	boolean checkPhoneExists(String phone);
+	boolean checkEmailExists(String email);
 }

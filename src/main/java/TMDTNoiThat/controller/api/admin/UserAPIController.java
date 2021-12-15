@@ -44,43 +44,54 @@ public class UserAPIController extends HttpServlet {
 			
 			UserService usv = new UserServiceImpl();
 			User u = usv.getUser(idUser);
-			if (u.getUserRole().getId() == idRole) 
-				idRole = null;
-			if (u.getUsername().equals(username))
-				email = null;
-			if (u.getEmail().equals(email))
-				email = null;
-			if (u.getPhone().equals(phone))
-				phone = null;
-			if (u.getActive() == active)
-				active = null;
 			
-			if (req.getPart("avatar").getSize() > 0) {
-				Part avt = req.getPart("avatar");
-				byte[] data = MyUtils.inputStreamToByteArray(avt.getInputStream());
-				if (data != null) {
-					Map response = CloudinaryContext.getCloudinaryContext().uploader().upload(data, ObjectUtils.emptyMap());
-					avtUrl = response.get("secure_url").toString();
-					if (avtUrl == null) {
+			if (usv.checkEmailExists(email) && !u.getEmail().equals(email)) {
+				d.put("status", "400");
+				d.put("message", "Địa chỉ email đã tồn tại!");
+			}
+			else if (usv.checkPhoneExists(phone) && !u.getPhone().equals(phone)) {
+				d.put("status", "400");
+				d.put("message", "Số điện thoại đã tồn tại!");
+			}
+			else {
+				if (u.getUserRole().getId() == idRole) 
+					idRole = null;
+				if (u.getUsername().equals(username))
+					email = null;
+				if (u.getEmail().equals(email))
+					email = null;
+				if (u.getPhone().equals(phone))
+					phone = null;
+				if (u.getActive() == active)
+					active = null;
+				
+				if (req.getPart("avatar").getSize() > 0) {
+					Part avt = req.getPart("avatar");
+					byte[] data = MyUtils.inputStreamToByteArray(avt.getInputStream());
+					if (data != null) {
+						Map response = CloudinaryContext.getCloudinaryContext().uploader().upload(data, ObjectUtils.emptyMap());
+						avtUrl = response.get("secure_url").toString();
+						if (avtUrl == null) {
+							d.put("status", "400");
+							d.put("message", "Tải ảnh lên thất bại, vui lòng thử lại (Upload failed)!");
+						}
+					}
+					else {
 						d.put("status", "400");
-						d.put("message", "Tải ảnh lên thất bại, vui lòng thử lại (Upload failed)!");
+						d.put("message", "Tải ảnh lên thất bại, vui lòng thử lại (Convert failed)!");
 					}
 				}
-				else {
-					d.put("status", "400");
-					d.put("message", "Tải ảnh lên thất bại, vui lòng thử lại (Convert failed)!");
-				}
-			}
-			
-			if (d.get("status") == null) {
-				if (usv.updateUser(idUser, idRole, username, null, phone, email, avtUrl, active)){
-					d.put("status", "200");
-					if (avtUrl != null)
-						d.put("newAvatarLink", avtUrl);
-				}
-				else {
-					d.put("status", "400");
-					d.put("message", "Cập nhật thất bại");
+				
+				if (d.get("status") == null) {
+					if (usv.updateUser(idUser, idRole, username, null, phone, email, avtUrl, active)){
+						d.put("status", "200");
+						if (avtUrl != null)
+							d.put("newAvatarLink", avtUrl);
+					}
+					else {
+						d.put("status", "400");
+						d.put("message", "Cập nhật thất bại");
+					}
 				}
 			}
 		}

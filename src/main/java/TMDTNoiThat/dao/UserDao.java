@@ -12,7 +12,6 @@ public interface UserDao {
 	
 	boolean createUser(Integer idRole, String username, String password, String phone, String email, String avatar, Boolean active);
 	boolean updateUser(Integer idUser, Integer idRole, String username, String password, String phone, String email, String avatar, Boolean active);
-	boolean checkUsernameExists(String username);
 	boolean checkEmailExists(String email);
 	boolean checkPhoneExists(String phone);
 }

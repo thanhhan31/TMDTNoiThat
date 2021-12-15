@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
 	public boolean checkPhoneExists(String phone) {
 		return u.checkPhoneExists(phone);
 	}
+
+	@Override
+	public boolean checkEmailExists(String email) {
+		return u.checkEmailExists(email);
+	}
 }

@@ -371,7 +371,7 @@
             processData: false,
 			success: function(respone) {
 				if (respone.status !== "200") {
-					$('avatar')[0].value = null;
+					$('#avatar', '#updateUserInfoModal')[0].value = null;
 					$("#modalErrorMessageTitle")[0].innerText = "Lỗi khi cập nhật thông tin người dùng";
 					$("#modalErrorMessage")[0].innerText = respone.message;
 					$("#errorModal").modal('show');
@@ -398,7 +398,7 @@
 					$("#modalInfoMessage")[0].innerText = "Cập nhật thông tin người dùng thành công";
 					$("#infoModal").modal('show');
 					
-					$('#avatar')[0].value = null;
+					$('#avatar', '#updateUserInfoModal')[0].value = null;
 					$("#updateUserInfoModal").modal('hide');
 				}
 			},
@@ -427,7 +427,7 @@
             processData: false,
 			success: function(respone) {
 				if (respone.status !== "200") {
-					$('avatar')[0].value = null;
+					$('#new_avatar', '#createNewUserInfoForm')[0].value = null;
 					$("#modalErrorMessageTitle")[0].innerText = "Lỗi khi tạo người dùng mới";
 					$("#modalErrorMessage")[0].innerText = respone.message;
 					$("#errorModal").modal('show');
@@ -504,6 +504,7 @@
 		$('#phone', '#updateUserInfoForm')[0].value = phone;
 		$('#username', '#updateUserInfoForm')[0].value = name;
 		$('#idUserUpdateForm', '#updateUserInfoForm')[0].value = idUser;
+		$('#avatar', '#updateUserInfoModal')[0].value = null;
 		
 		$('#updateUserInfoModalTitle')[0].innerText = 'Cập nhật thông tin tài khoản mã ' + idUser;
 		$('#updateUserInfoModal').modal('show')

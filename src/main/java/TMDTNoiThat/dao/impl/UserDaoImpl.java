@@ -210,22 +210,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean checkUsernameExists(String username) {
-		EntityManager em = EntityManagerFactoryContext.createEntityManager();
-		
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		Root<User> rootEntry = cq.from(User.class);
-		cq.select(cb.count(rootEntry));
-		cq.where(cb.equal(rootEntry.get(User_.username), username));
-		
-		Long ret = em.createQuery(cq).getSingleResult();
-		em.close();
-		
-		return ret != 0;
-	}
-
-	@Override
 	public boolean checkEmailExists(String email) {
 		EntityManager em = EntityManagerFactoryContext.createEntityManager();
 		
