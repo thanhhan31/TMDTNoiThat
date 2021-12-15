@@ -111,7 +111,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> sellerGetProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock, int start, int count) {
+	public List<Product> sellerGetProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock, int start, int count) {
 		EntityManager em = EntityManagerFactoryContext.createEntityManager();
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -127,6 +127,10 @@ public class ProductDaoImpl implements ProductDao {
 		
 		if (idCategory != null) {
 			cond.add(cb.equal(rootEntry.get(Product_.category).get(Category_.id), idCategory));
+		}
+		
+		if (searchName != null) {
+			cond.add(cb.like(rootEntry.get(Product_.name), "%" + searchName + "%"));
 		}
 		
 		if (status != null) {
@@ -161,7 +165,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
-	public Long sellerCountProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock) {
+	public Long sellerCountProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock) {
 		EntityManager em = EntityManagerFactoryContext.createEntityManager();
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -177,6 +181,10 @@ public class ProductDaoImpl implements ProductDao {
 		
 		if (idCategory != null) {
 			cond.add(cb.equal(rootEntry.get(Product_.category).get(Category_.id), idCategory));
+		}
+		
+		if (searchName != null) {
+			cond.add(cb.like(rootEntry.get(Product_.name), "%" + searchName + "%"));
 		}
 		
 		if (status != null) {

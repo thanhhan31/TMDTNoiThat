@@ -33,11 +33,17 @@ public class UserMgrController extends HttpServlet {
 		int currentPage = 0;
 		int userCount = -1;
 		int pagesize = 10;
+		
 		Integer idRole = null;
+		String searchName = null;
 		Boolean status = null;
 		
 		if (req.getParameter("idRole") != null) {
 			idRole = Integer.parseInt(req.getParameter("idRole"));
+		}
+		
+		if (req.getParameter("searchName") != null) {
+			searchName = req.getParameter("searchName");
 		}
 		
 		if (req.getParameter("page") != null) {
@@ -53,16 +59,22 @@ public class UserMgrController extends HttpServlet {
 			status = tmp.intValue() == 1;
 		}
 		
-		userCount = usv.countUsers(idRole, status).intValue();
-		users = usv.getUsers(idRole, status, currentPage * pagesize, pagesize);
+		userCount = usv.countUsers(idRole, searchName, status).intValue();
+		
+		while (currentPage * pagesize > userCount) {
+			currentPage = currentPage - 1;
+		}
+		
+		users = usv.getUsers(idRole, searchName, status, currentPage * pagesize, pagesize);
 		
 		Map<UserRole, Long> userRoleQty = new LinkedHashMap<UserRole, Long>();
 		for (UserRole c : userRoles) {
-			userRoleQty.put(c, usv.countUsers(c.getId(), status));
+			userRoleQty.put(c, usv.countUsers(c.getId(), searchName, status));
 		}
 		
 		req.setAttribute("pages",
 				MyUtils.paginate(currentPage, (int)Math.ceil((double)userCount/pagesize), 1));
+		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("user", (User)req.getSession().getAttribute("user"));
 		req.setAttribute("users", users);
 		req.setAttribute("userRoles", userRoles);

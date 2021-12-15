@@ -31,10 +31,10 @@ public class SellerHomeController extends HttpServlet {
 		
 		
 		
-		req.setAttribute("nAllProducts", psv.sellerCountProducts(user.getId(), null, null, false));
-		req.setAttribute("nUnavailableProducts", psv.sellerCountProducts(user.getId(), null, null, true));
-		req.setAttribute("nDisabledProducts", psv.sellerCountProducts(user.getId(), null, ConstantValue.PRODUCT_DISABLED_SELLER, false));
-		req.setAttribute("nBannedProducts", psv.sellerCountProducts(user.getId(), null, ConstantValue.PRODUCT_DISABLED_ADMIN, false));
+		req.setAttribute("nAllProducts", psv.sellerCountProducts(user.getId(), null, null, null, false));
+		req.setAttribute("nUnavailableProducts", psv.sellerCountProducts(user.getId(), null, null, null, true));
+		req.setAttribute("nDisabledProducts", psv.sellerCountProducts(user.getId(), null, null, ConstantValue.PRODUCT_DISABLED_SELLER, false));
+		req.setAttribute("nBannedProducts", psv.sellerCountProducts(user.getId(), null, null, ConstantValue.PRODUCT_DISABLED_ADMIN, false));
 		
 		req.setAttribute("nAllOrders", osv.sellerCountOrders(user.getId(), null));
 		req.setAttribute("nPaidOrders", osv.sellerCountOrders(user.getId(), ConstantValue.PAID_ORDER));

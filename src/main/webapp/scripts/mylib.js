@@ -7,6 +7,15 @@ function goLogin() {
 	}
 }
 
+function filterSearch(filterName, searchName) {
+	if (searchName == ""){
+		window.location.href = removeURLParameter(window.location.href, filterName);
+	}
+	else {
+		window.location.href = updateURLParameter(window.location.href, filterName, searchName);
+	}
+}
+
 function filter(filterName, select) {
 	var c = select.value;
 	if (c == ""){

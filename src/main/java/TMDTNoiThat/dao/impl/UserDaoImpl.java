@@ -21,7 +21,7 @@ import TMDTNoiThat.utils.MyUtils;
 public class UserDaoImpl implements UserDao {
 
 	@Override
-	public List<User> getUsers(Integer idRole, Boolean active, Integer start, Integer count) {
+	public List<User> getUsers(Integer idRole, String searchName, Boolean active, Integer start, Integer count) {
 		EntityManager em = EntityManagerFactoryContext.createEntityManager();
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -35,6 +35,11 @@ public class UserDaoImpl implements UserDao {
 		if (idRole != null) {
 			cond.add(cb.equal(rootEntry.get(User_.userRole).get(UserRole_.id), idRole));
 		}
+		
+		if (searchName != null) {
+			cond.add(cb.like(rootEntry.get(User_.username), "%" + searchName + "%"));
+		}
+		
 		if (active != null) {
 			cond.add(cb.equal(rootEntry.get(User_.active), active));
 		}
@@ -53,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public Long countUsers(Integer idRole, Boolean active) {
+	public Long countUsers(Integer idRole, String searchName, Boolean active) {
 		EntityManager em = EntityManagerFactoryContext.createEntityManager();
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -67,6 +72,11 @@ public class UserDaoImpl implements UserDao {
 		if (idRole != null) {
 			cond.add(cb.equal(rootEntry.get(User_.userRole).get(UserRole_.id), idRole));
 		}
+		
+		if (searchName != null) {
+			cond.add(cb.like(rootEntry.get(User_.username), "%" + searchName + "%"));
+		}
+		
 		if (active != null) {
 			cond.add(cb.equal(rootEntry.get(User_.active), active));
 		}

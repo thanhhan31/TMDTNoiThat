@@ -37,10 +37,15 @@ public class ProductMgrController extends HttpServlet {
 		
 		Boolean outOfStock = null;
 		Integer idCategory = null;
+		String searchName = null;
 		Integer status = null;
 		
 		if (req.getParameter("category") != null) {
 			idCategory = Integer.parseInt(req.getParameter("category"));
+		}
+		
+		if (req.getParameter("searchName") != null) {
+			searchName = req.getParameter("searchName");
 		}
 		
 		if (req.getParameter("status") != null) {
@@ -59,17 +64,17 @@ public class ProductMgrController extends HttpServlet {
 			outOfStock = Integer.parseInt(req.getParameter("outOfStock")) == 1;
 		}
 		
-		productCount = psv.sellerCountProducts(user.getId(), idCategory, status, outOfStock).intValue();
+		productCount = psv.sellerCountProducts(user.getId(), idCategory, searchName, status, outOfStock).intValue();
 		
-		if (currentPage * pagesize > productCount) {
+		while (currentPage * pagesize > productCount) {
 			currentPage = currentPage - 1;
 		}
 		
-		products = psv.sellerGetProducts(user.getId(), idCategory, status, outOfStock, currentPage * pagesize, pagesize);
+		products = psv.sellerGetProducts(user.getId(), idCategory, searchName, status, outOfStock, currentPage * pagesize, pagesize);
 
 		Map<Category, Long> categoriesQty = new LinkedHashMap<Category, Long>();
 		for (Category c : csv.getAllCategories()) {
-			categoriesQty.put(c, psv.sellerCountProducts(user.getId(), c.getId(), status, false));
+			categoriesQty.put(c, psv.sellerCountProducts(user.getId(), c.getId(), searchName, status, outOfStock));
 		}
 		
 		req.setAttribute("pages",

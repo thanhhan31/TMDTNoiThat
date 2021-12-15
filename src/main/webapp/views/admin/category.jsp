@@ -275,10 +275,11 @@
 		
 		$('#name')[0].value = name;
 		$('#idCategory')[0].value = idCategory;
-		$('#updateCategoryInfoModal').modal('show')
+		$('#updateCategoryInfoModal').modal('show');
 	}
 	
 	function showCreateNewCategoryModal(){
-		$('#createCategoryModal').modal('show')
+		$('#new_name')[0].value = '';
+		$('#createCategoryModal').modal('show');
 	}
 </script>

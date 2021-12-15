@@ -54,7 +54,7 @@ public class CategoryAPIController extends HttpServlet {
 		else if (action.equals("delete")) {
 			Integer idCategory = Integer.parseInt(req.getParameter("idCategory"));
 			
-			if (new ProductServiceImpl().adminCountProducts(idCategory, null, false) == 0) {
+			if (new ProductServiceImpl().adminCountProducts(idCategory, null, null, false) == 0) {
 				CategoryService csv = new CategoryServiceImpl();
 				if (!csv.deleteCategory(idCategory)) {
 					d.put("status", "400");

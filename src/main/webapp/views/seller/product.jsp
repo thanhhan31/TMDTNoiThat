@@ -45,6 +45,16 @@
 				</div>
 			</div>
 			<div class="d-flex flex-column mr-3">
+				<form class="form-inline mt-2 mt-lg-0" onsubmit="return false;">
+					<div class="input-group">
+						<input class="form-control" type="text" id="searchName" name="searchName" placeholder="Nhập tên sản phẩm cần tìm" value="${empty param['searchName'] ? '' :  param['searchName']}">
+						<div class="input-group-append">
+							<button class="btn btn-success" type="submit" onclick="searchProduct(this)"><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="d-flex flex-column mr-3">
 				<div class="form-group form-inline">
 					<label for="paginateSizeSelect">Hiển thị</label>
 					<select class="form-control ml-1" id="paginateSizeSelect" onchange="filter('pagesize', this)">
@@ -172,7 +182,7 @@
 	<div class="text-center">
 		<nav>
 			<ul class="pagination justify-content-center">
-				<c:set var="page_ref_params" value="?${not empty param['category'] ? 'category='.concat(param['category']).concat('&') : ''}${not empty param['status'] ? 'status='.concat(param['status']).concat('&') : ''}${not empty param['pagesize'] ? 'pagesize='.concat(param['pagesize']).concat('&') : ''}" />
+				<c:set var="page_ref_params" value="?${not empty param['category'] ? 'category='.concat(param['category']).concat('&') : ''}${not empty param['status'] ? 'status='.concat(param['status']).concat('&') : ''}${not empty param['pagesize'] ? 'pagesize='.concat(param['pagesize']).concat('&') : ''}${not empty param['searchName'] ? 'searchName='.concat(param['searchName']).concat('&') : ''}" />
 
 				<c:forEach items="${pages}" var="p" varStatus="loop">
 					<c:choose>
@@ -189,7 +199,7 @@
 								</c:otherwise>
 							</c:choose>
 						</c:when>
-						<c:when test="${p.toString().equals(param['page'])}">
+						<c:when test="${p == currentPage}">
 							<li class="page-item active"><a class="page-link" href="${page_ref_params}page=${p}">${p + 1}</a></li>
 						</c:when>
 						<c:otherwise>
@@ -204,6 +214,11 @@
 
 
 <script>
+	function searchProduct(btn) {
+		searchName = $(btn.closest('form')).find('#searchName')[0].value;
+		filterSearch('searchName', searchName);
+	}
+	
 	function setProductActive(idProduct, active) {
 		let type = '';
 		if (active == 1){

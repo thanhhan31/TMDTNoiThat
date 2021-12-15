@@ -9,11 +9,11 @@ public interface ProductService {
 	List<Product> getProducts(Integer idCategory, String searchName, Integer sortType, int start, int count);
 	Long countProducts(Integer idCategory, String searchName);
 	
-	List<Product> adminGetProducts(Integer idCategory, Integer status, Boolean outOfStock, int start, int count);
-	Long adminCountProducts(Integer idCategory, Integer status, Boolean outOfStock);
+	List<Product> adminGetProducts(Integer idCategory, String searchName, Integer status, Boolean outOfStock, int start, int count);
+	Long adminCountProducts(Integer idCategory, String searchName, Integer status, Boolean outOfStock);
 	
-	List<Product> sellerGetProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock, int start, int count);
-	Long sellerCountProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock);
+	List<Product> sellerGetProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock, int start, int count);
+	Long sellerCountProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock);
 	
 	List<Product> getTopNsoldProducts(Integer top);
 	List<Product> getTopNvisitProducts(Integer top);

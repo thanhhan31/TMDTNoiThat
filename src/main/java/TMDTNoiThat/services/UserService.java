@@ -5,8 +5,8 @@ import java.util.List;
 import TMDTNoiThat.entity.User;
 
 public interface UserService {
-	List<User> getUsers(Integer idRole, Boolean active, Integer start, Integer count);
-	Long countUsers(Integer idRole, Boolean active);
+	List<User> getUsers(Integer idRole, String searchName, Boolean active, Integer start, Integer count);
+	Long countUsers(Integer idRole, String searchName, Boolean active);
 	User getUser(Integer idUser);
 	User getUser(String email, String password);
 	

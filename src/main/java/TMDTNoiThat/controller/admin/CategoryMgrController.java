@@ -30,7 +30,7 @@ public class CategoryMgrController extends HttpServlet {
 		
 		Map<Category, Long> categories = new LinkedHashMap<Category, Long>();
 		for (Category c : csv.adminGetAllCategories()) {
-			categories.put(c, psv.adminCountProducts(c.getId(), null, false));
+			categories.put(c, psv.adminCountProducts(c.getId(), null, null, false));
 		}
 		
 		req.setAttribute("user", user);

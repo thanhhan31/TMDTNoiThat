@@ -22,23 +22,23 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> adminGetProducts(Integer idCategory, Integer status, Boolean outOfStock, int start, int count) {
-		return p.sellerGetProducts(null, idCategory, status, outOfStock, start, count);
+	public List<Product> adminGetProducts(Integer idCategory, String searchName, Integer status, Boolean outOfStock, int start, int count) {
+		return p.sellerGetProducts(null, idCategory, searchName, status, outOfStock, start, count);
 	}
 
 	@Override
-	public Long adminCountProducts(Integer idCategory, Integer status, Boolean outOfStock) {
-		return p.sellerCountProducts(null, idCategory, status, outOfStock);
+	public Long adminCountProducts(Integer idCategory, String searchName, Integer status, Boolean outOfStock) {
+		return p.sellerCountProducts(null, idCategory, searchName, status, outOfStock);
 	}
 	
 	@Override
-	public List<Product> sellerGetProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock, int start, int count) {
-		return p.sellerGetProducts(idUser, idCategory, status, outOfStock, start, count);
+	public List<Product> sellerGetProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock, int start, int count) {
+		return p.sellerGetProducts(idUser, idCategory, searchName, status, outOfStock, start, count);
 	}
 
 	@Override
-	public Long sellerCountProducts(Integer idUser, Integer idCategory, Integer status, Boolean outOfStock) {
-		return p.sellerCountProducts(idUser, idCategory, status, outOfStock);
+	public Long sellerCountProducts(Integer idUser, Integer idCategory, String searchName, Integer status, Boolean outOfStock) {
+		return p.sellerCountProducts(idUser, idCategory, searchName, status, outOfStock);
 	}
 	
 	@Override

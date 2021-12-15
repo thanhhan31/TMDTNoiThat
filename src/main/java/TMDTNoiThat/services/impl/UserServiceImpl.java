@@ -11,13 +11,13 @@ public class UserServiceImpl implements UserService {
 	UserDao u = new UserDaoImpl();
 	
 	@Override
-	public List<User> getUsers(Integer idRole, Boolean active, Integer start, Integer count) {
-		return u.getUsers(idRole, active, start, count);
+	public List<User> getUsers(Integer idRole, String searchName, Boolean active, Integer start, Integer count) {
+		return u.getUsers(idRole, searchName, active, start, count);
 	}
 
 	@Override
-	public Long countUsers(Integer idRole, Boolean active) {
-		return u.countUsers(idRole, active);
+	public Long countUsers(Integer idRole, String searchName, Boolean active) {
+		return u.countUsers(idRole, searchName, active);
 	}
 	
 	@Override

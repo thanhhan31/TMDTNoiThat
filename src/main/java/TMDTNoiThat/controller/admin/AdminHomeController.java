@@ -27,13 +27,13 @@ public class AdminHomeController extends HttpServlet {
 		ProductService psv = new ProductServiceImpl();
 		OrderService osv = new OrderServiceImpl();
 		
-		req.setAttribute("nAdminUsers", usv.countUsers(ConstantValue.ADMIN_ROLE, null));
-		req.setAttribute("nSellerUsers", usv.countUsers(ConstantValue.SELLER_ROLE, null));
-		req.setAttribute("nNormalUsers", usv.countUsers(ConstantValue.USER_ROLE, null));
-		req.setAttribute("nBannedUsers", usv.countUsers(null, false));
+		req.setAttribute("nAdminUsers", usv.countUsers(ConstantValue.ADMIN_ROLE, null, null));
+		req.setAttribute("nSellerUsers", usv.countUsers(ConstantValue.SELLER_ROLE, null, null));
+		req.setAttribute("nNormalUsers", usv.countUsers(ConstantValue.USER_ROLE, null, null));
+		req.setAttribute("nBannedUsers", usv.countUsers(null, null, false));
 		
-		req.setAttribute("nProducts", psv.adminCountProducts(null, null, false));
-		req.setAttribute("nBannedProducts", psv.adminCountProducts(null, ConstantValue.PRODUCT_DISABLED_ADMIN, false));
+		req.setAttribute("nProducts", psv.adminCountProducts(null, null, null, false));
+		req.setAttribute("nBannedProducts", psv.adminCountProducts(null, null, ConstantValue.PRODUCT_DISABLED_ADMIN, false));
 		req.setAttribute("nOrders", osv.adminCountOrders(null));
 		req.setAttribute("nDeliveriedOrders", osv.adminCountOrders(ConstantValue.DELIVERED_ORDER));
 		

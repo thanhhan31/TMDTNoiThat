@@ -94,8 +94,7 @@
 																	<img src="${odt.getProduct().getProductImages().get(0).getImageLink()}">
 																</c:when>
 																<c:otherwise>
-																	<img src="https://pbs.twimg.com/profile_images/1321517203397771266/Ifgafw1e_400x400.jpg"
-																		width="100" height="100">
+																	<img src='<c:url value='/templates/static/image/noproductimg.jpg'/>' width="100" height="100">
 																</c:otherwise>
 															</c:choose>
 														</div>
