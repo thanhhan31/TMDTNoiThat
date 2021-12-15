@@ -184,15 +184,18 @@
 		}
 		
 		$.getJSON(host + '/api/admin/report-api?year=' + t[0] + '&month=' + t[1], function(data) {
-			randColor = [];
+			pieRandColor = [];
+			barRandColor = [];
 			let pieX = [];
 			let pieY = [];
 			let s = 0;
 			Object.keys(data).forEach(function(key) {
+				let color = generateRandomColor();
+				barRandColor.push(color);
 				if (data[key] > 0) {
 					pieX.push(xlable + key);
 					pieY.push(data[key]);
-					randColor.push(generateRandomColor());
+					pieRandColor.push(color);
 					s += data[key];
 				}
 			});
@@ -210,7 +213,7 @@
 						{
 							label: 'Tổng tiền bán hàng',
 							data: Object.values(data),
-							backgroundColor: randColor,
+							backgroundColor: barRandColor,
 						}
 					]
 				},
@@ -262,7 +265,7 @@
 				  data: {
 				    labels: pieX,
 				    datasets: [{
-						backgroundColor: randColor,
+						backgroundColor: pieRandColor,
 						data: pieY
 				    }]
 				  },
