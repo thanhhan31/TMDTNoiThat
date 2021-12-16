@@ -126,7 +126,7 @@
 								<div class="form-group form-inline">
 									<label for="monthSelect" class="ml-2">Chọn khoảng thời gian</label>
 									<select class="form-control ml-2" id="timeSelect" onchange="showReport()">
-										<c:forEach items="${orderTimes.keySet()}" var="y" varStatus="loop">
+										<c:forEach items="${orderTimes.keySet()}" var="y">
 											<optgroup label="Năm ${y}">
 												<option value="${y},-1">Tất cả tháng năm ${y}</option>
 												<c:forEach items="${orderTimes.get(y)}" var="m">
