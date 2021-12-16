@@ -244,10 +244,10 @@ public class OrderDaoImpl implements OrderDao {
 		
 		if (idUser != null) {
 			cq.where(cb.and(cb.equal(rootEntry.get(Order_.seller).get(User_.id), idUser)),
-					cb.greaterThanOrEqualTo(rootEntry.get(Order_.status), ConstantValue.PAID_ORDER));
+					cb.equal(rootEntry.get(Order_.status), ConstantValue.DELIVERED_ORDER));
 		}
 		else { //for admin report
-			cq.where(cb.greaterThanOrEqualTo(rootEntry.get(Order_.status), ConstantValue.PAID_ORDER));
+			cq.where(cb.equal(rootEntry.get(Order_.status), ConstantValue.DELIVERED_ORDER));
 		}
 		
 		List<Date> t = em.createQuery(cq).getResultList();
@@ -291,12 +291,12 @@ public class OrderDaoImpl implements OrderDao {
 		if (idUser != null) {
 			cq.where(cb.and(
 					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.seller).get(User_.id), idUser),
-					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
+					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.DELIVERED_ORDER),
 					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year)));
 		}
 		else { //for admin report
 			cq.where(cb.and(
-					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
+					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.DELIVERED_ORDER),
 					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year)));
 		}
 		
@@ -341,13 +341,13 @@ public class OrderDaoImpl implements OrderDao {
 		if (idUser != null) {
 			cq.where(cb.and(
 					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.seller).get(User_.id), idUser),
-					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
+					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.DELIVERED_ORDER),
 					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year),
 					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), month)));
 		}
 		else {
 			cq.where(cb.and(
-					cb.greaterThanOrEqualTo(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.PAID_ORDER),
+					cb.equal(rootEntry.get(OrderDetail_.order).get(Order_.status), ConstantValue.DELIVERED_ORDER),
 					cb.equal(cb.function("YEAR", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), year),
 					cb.equal(cb.function("MONTH", Integer.class, rootEntry.get(OrderDetail_.order).get(Order_.paidTime)), month)));
 		}
@@ -455,7 +455,9 @@ public class OrderDaoImpl implements OrderDao {
 		try {
 			Order order = em.getReference(Order.class, idOrder);
 			order.setStatus(ConstantValue.PAID_ORDER);
-			order.setPaidTime(MyUtils.getCurrentTime());
+			if (idPaymentMethod == 2) {
+				order.setPaidTime(MyUtils.getCurrentTime());
+			}
 			order.setPaymentMethod(em.getReference(PaymentMethod.class, idPaymentMethod));
 			em.getTransaction().begin();
 			em.merge(order);
@@ -479,6 +481,9 @@ public class OrderDaoImpl implements OrderDao {
 		try {
 			Order order = em.getReference(Order.class, idOrder);
 			order.setStatus(ConstantValue.DELIVERED_ORDER);
+			if (order.getPaymentMethod().getId() == 1) {
+				order.setPaidTime(MyUtils.getCurrentTime());
+			}
 			em.getTransaction().begin();
 			em.merge(order);
 			em.getTransaction().commit();
