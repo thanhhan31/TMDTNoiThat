@@ -44,7 +44,7 @@
 			<div class="d-flex flex-column mr-3">
 				<form class="form-inline mt-2 mt-lg-0" onsubmit="return false;">
 					<div class="input-group">
-						<input class="form-control" type="text" id="searchName" name="searchName" placeholder="Nhập tên sản phẩm cần tìm" value="${empty param['searchName'] ? '' :  param['searchName']}">
+						<input class="form-control" type="text" id="searchName" name="searchName" placeholder="Nhập tên người dùng cần tìm" value="${empty param['searchName'] ? '' :  param['searchName']}">
 						<div class="input-group-append">
 							<button class="btn btn-success" type="submit" onclick="searchUser(this)"><i class="fas fa-search"></i></button>
 						</div>

@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -251,6 +253,8 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		
 		List<Date> t = em.createQuery(cq).getResultList();
+		em.close();
+		
 		Map<Integer, List<Integer>> timeMap = new LinkedHashMap<Integer, List<Integer>>();
 		
 		Calendar cal = Calendar.getInstance();
@@ -263,17 +267,18 @@ public class OrderDaoImpl implements OrderDao {
 			if (!timeMap.containsKey(year)) {
 				List<Integer> months = new ArrayList<Integer>();
 				for (Date y : t) {
-					cal2.setTime(y);	
+					cal2.setTime(y);
 					if (cal2.get(Calendar.YEAR) == year) {
 						if (!months.contains(cal2.get(Calendar.MONTH) + 1)) {
 							months.add(cal2.get(Calendar.MONTH) + 1);
 						}
 					}
 				}
+				Collections.sort(months);
 				timeMap.put(year, months);
 			}
 		}
-		em.close();
+		
 		return timeMap;
 	}
 	

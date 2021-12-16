@@ -47,7 +47,7 @@
 					</c:when>
 					<c:when test="${not empty user && user.getUserRole().getName() == 'Admin'}">
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/admin/users">Trang quản trị hệ thống</a>
+							<a class="nav-link" href="${pageContext.request.contextPath}/admin">Trang quản trị hệ thống</a>
 						</li>
 					</c:when>
 				</c:choose>
