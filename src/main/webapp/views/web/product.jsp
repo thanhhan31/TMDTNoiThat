@@ -17,10 +17,10 @@
 							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ${param['category'] != null && c.id == Integer.parseInt(param['category']) ? 'active' : ''}">
 								<c:choose>
 									<c:when test="${not empty param['sort']}">
-										<a class="text-dark" href="products?category=${c.id}&sort=${param['sort']}">${c.name}</a>
+										<a class="${param['category'] != null && c.id == Integer.parseInt(param['category']) ? 'text-white' : 'text-dark'}" href="products?category=${c.id}&sort=${param['sort']}">${c.name}</a>
 									</c:when>
 									<c:otherwise>
-										<a class="text-dark" href="products?category=${c.id}">${c.name}</a>
+										<a class="${param['category'] != null && c.id == Integer.parseInt(param['category']) ? 'text-white' : 'text-dark'}" href="products?category=${c.id}">${c.name}</a>
 									</c:otherwise>
 								</c:choose>
 								<span class="badge badge-secondary badge-pill">${categoriesQty.get(c)}</span>
